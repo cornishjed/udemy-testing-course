@@ -1,20 +1,23 @@
-const TodoController = require("../../controllers/todo.controller");
+const httpMocks = require("node-mocks-http"); // enables simulation of req res operations
+
+const TodoController = require("../../controllers/todo.controller"); // importing neccessary files for testing
 const TodoModel = require("../../model/todo.model");
-const httpMocks = require("node-mocks-http");
 const newTodo = require("../mock-data/new-todo.json");
 
-TodoModel.create = jest.fn();
+TodoModel.create = jest.fn(); // function must be defined as jest function for testing
 
 let req, res, next;
+
 beforeEach(() => {
   req = httpMocks.createRequest();
   res = httpMocks.createResponse();
   next = null;
 });
 
+// testing a function. each 'it' is a condition it should pass
 describe("TodoController.createTodo", () => {
   beforeEach(() => {
-    req.body = newTodo;
+    req.body = newTodo; // initiated before each test
   });
   it("should have a createTodo function", () => {
     expect(typeof TodoController.createTodo).toBe("function");
@@ -24,13 +27,12 @@ describe("TodoController.createTodo", () => {
     expect(TodoModel.create).toBeCalledWith(newTodo);
   });
   it("should return 201 response code", () => {
-    req.body = newTodo;
     TodoController.createTodo(req, res, next);
     expect(res.statusCode).toBe(201);
     expect(res._isEndCalled()).toBeTruthy();
   });
   it("should return json body in response", () => {
-    TodoModel.create.mockReturnValue(newTodo);
+    TodoModel.create.mockReturnValue(newTodo); // "Accepts a value that will be returned whenever the mock function is called." 
     TodoController.createTodo(req, res, next);
     expect(res._getJSONData()).toStrictEqual(newTodo);
   });
