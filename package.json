@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll"
+    "test": "jest --watchAll",
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,16 @@
   "devDependencies": {
     "jest": "^29.5.0",
     "supertest": "^6.3.3"
-  }
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cornishjed/udemy-testing-course.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cornishjed/udemy-testing-course/issues"
+  },
+  "homepage": "https://github.com/cornishjed/udemy-testing-course#readme"
 }
