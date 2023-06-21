@@ -5,9 +5,9 @@ const newTodo = require("../mock-data/new-todo.json");
 const endpointUrl = "/todos/";
 
 // when POST at endpointUrl is triggered, test sequence carried out
-describe(endpointUrl, () => {
+describe(endpointUrl, () => { // 'describe' and 'it' being part of jest...
   it("POST" + endpointUrl, async () => {
-    const response = await request(app).post(endpointUrl).send(newTodo);
+    const response = await request(app).post(endpointUrl).send(newTodo); // 'request' and 'expect' are supertest
     expect(response.statusCode).toBe(201);
     expect(response.body.title).toBe(newTodo.title);
     expect(response.body.done).toBe(newTodo.done);
