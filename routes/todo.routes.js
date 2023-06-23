@@ -6,5 +6,6 @@ router.post("/", todoController.createTodo); // after post using param 2, return
 router.get("/", todoController.getTodos);
 router.get("/:todoId", todoController.getTodoById);
 router.put("/:todoId", todoController.updateTodo);
+router.delete("/:todoId", todoController.deleteTodo);
 
 module.exports = router;
