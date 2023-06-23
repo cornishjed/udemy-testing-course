@@ -4,7 +4,7 @@ const newTodo = require("../mock-data/new-todo.json");
 
 const endpointUrl = "/todos/";
 
-let firstTodo;
+let firstTodo, newTodoId;
 
 // when POST at endpointUrl is triggered, test sequence carried out
 describe(endpointUrl, () => {
@@ -40,6 +40,7 @@ describe(endpointUrl, () => {
       expect(response.statusCode).toBe(201);
       expect(response.body.title).toBe(newTodo.title);
       expect(response.body.done).toBe(newTodo.done);
+      newTodoId = response.body._id;
     },
     30000
   );
@@ -54,5 +55,18 @@ describe(endpointUrl, () => {
         message: "Todo validation failed: done: Path `done` is required.",
       });
     }
+  );
+  test(
+    "PUT " + endpointUrl + ":todoId",
+    async () => {
+      const testData = { title: "Make integration test2 for PUT", done: true };
+      const res = await request(app)
+        .put(endpointUrl + newTodoId)
+        .send(testData);
+      expect(res.statusCode).toBe(200);
+      expect(res.body.title).toBe(testData.title);
+      expect(res.body.done).toBe(testData.done);
+    },
+    30000
   );
 });
